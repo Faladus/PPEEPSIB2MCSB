@@ -63,31 +63,29 @@
             android:layout_weight="0.9"
             android:orientation="vertical">
 
-            <Space
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.01"/>
+                android:orientation="horizontal"
+                android:layout_weight="0.1">
 
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.1"
-                android:gravity="center_vertical"
-                android:text="Motif de la visite : "
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"
+                    android:gravity="center_vertical"
+                    android:text="Motif de la visite : "
+                    android:textStyle="bold" />
 
-            <Spinner
-                android:id="@+id/spinner2"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.1"
-                android:gravity="center_vertical"/>
+                <Spinner
+                    android:id="@+id/spinner2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"
+                    android:gravity="center_vertical"/>
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.01"/>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -102,8 +100,8 @@
                     android:gravity="center_vertical"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/textView23"
+                <AutoCompleteTextView
+                    android:id="@+id/editTextPraticien"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"

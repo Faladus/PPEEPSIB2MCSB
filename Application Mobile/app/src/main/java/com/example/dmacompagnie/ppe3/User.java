@@ -1,24 +1,10 @@
 package com.example.dmacompagnie.ppe3;
 
-import android.content.Context;
-import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.dmacompagnie.ppe_3.MainActivity;
-
-import org.json.JSONObject;
-
 public class User {
 
     private String matricule;
     private String nom;
     private String prenom;
-    private String dateDeNaissance;
     private TypeUser type;
     private String adresse;
     private String codePostal;
@@ -29,11 +15,10 @@ public class User {
     private String region;
     private String secteur;
 
-    public User(String matricule, String nom, String prenom, String dateDeNaissance, TypeUser type, String adresse, String codePostal, String Ville, String dateEmbauche, String refResponsable, String refDelegue, String Region, String Secteur) {
+    public User(String matricule, String nom, String prenom, TypeUser type, String adresse, String codePostal, String Ville, String dateEmbauche, String refResponsable, String refDelegue, String Region, String Secteur) {
         this.matricule = matricule;
         this.nom = nom;
         this.prenom = prenom;
-        this.dateDeNaissance = dateDeNaissance;
         this.type = type;
         this.adresse = adresse;
         this.codePostal = codePostal;
@@ -59,10 +44,6 @@ public class User {
 
     public String getPrenom() {
         return prenom;
-    }
-
-    public String getDateDeNaissance() {
-        return dateDeNaissance;
     }
 
     public TypeUser getType() {
@@ -107,10 +88,6 @@ public class User {
 
     public void setPrenom(String prenom) {
         this.prenom = prenom;
-    }
-
-    public void setDateDeNaissance(String dateDeNaissance) {
-        this.dateDeNaissance = dateDeNaissance;
     }
 
     public void setType(TypeUser type) {

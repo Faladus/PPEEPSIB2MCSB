@@ -3,10 +3,13 @@ package com.example.dmacompagnie.ppe_3;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -34,6 +37,7 @@ import com.example.dmacompagnie.ppe3.*;
 public class MainActivity extends AppCompatActivity {
 
     User utilisateur;
+    JSONArray praticien;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,11 +70,11 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             JSONObject compteRednuJson = new JSONObject(response);
                             if (compteRednuJson.has("info") && !compteRednuJson.has("erreur")){
+                                setContentView(R.layout.menu_layout);
                                 JSONObject result = compteRednuJson.getJSONObject("info");
                                 utilisateur = new User(result.getString("Matricule"),
                                         result.getString("Nom"),
                                         result.getString("Prenom"),
-                                        "",
                                         TypeUser.valueOf(result.getString("Type")), //VERIFIER SI C'EST BON
                                         result.getString("Adresse"),
                                         result.getString("CP"),
@@ -80,8 +84,6 @@ public class MainActivity extends AppCompatActivity {
                                         null,
                                         null,
                                         null);
-
-                                setContentView(R.layout.menu_layout);
                             }
                             else if (compteRednuJson.has("erreur")){
                                 Toast.makeText(getApplicationContext(), compteRednuJson.getString("erreur"), Toast.LENGTH_LONG).show();
@@ -110,8 +112,6 @@ public class MainActivity extends AppCompatActivity {
         txtNom.setText(utilisateur.getMatricule());
         TextView txtPrenom = findViewById(R.id.textViewPrenom);
         txtPrenom.setText(utilisateur.getPrenom());
-        TextView txtDateNaissance = findViewById(R.id.textViewDateNaissance);
-        txtDateNaissance.setText(utilisateur.getDateDeNaissance());
         TextView txtType = findViewById(R.id.textViewType);
         txtType.setText(utilisateur.getType().toString());
         TextView txtAdresse = findViewById(R.id.textViewAdresse);
@@ -167,6 +167,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
+                            setContentView(R.layout.compte_rendu_1);
+
                             JSONObject compteRednuJson = new JSONObject(response);
                             List<String> arraySpinner = new ArrayList<>();
                             Spinner spinner = findViewById(R.id.spinner2);
@@ -178,6 +180,14 @@ public class MainActivity extends AppCompatActivity {
                                     android.R.layout.simple_list_item_1, arraySpinner);
                             adp1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                             spinner.setAdapter(adp1);
+
+                            //JSONArray medic = compteRednuJson.getJSONArray("medicaments");
+                            //JSONArray echantillons = compteRednuJson.getJSONArray("echantillons");
+                            praticien = compteRednuJson.getJSONArray("praticiens");
+
+                            AutoCompleteTextView praticienEditText = findViewById(R.id.editTextPraticien);
+                            praticienEditText.setCompletionHint("a");
+                            praticienEditText.setCompletionHint("b");
                         } catch (Exception e) {
                             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                         }
@@ -191,7 +201,10 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
         queue.add(stringRequest);
-        setContentView(R.layout.compte_rendu_1);
+    }
+
+    public void praticienOnChange(){
+
     }
 
     public void goto_documentation(View v){
