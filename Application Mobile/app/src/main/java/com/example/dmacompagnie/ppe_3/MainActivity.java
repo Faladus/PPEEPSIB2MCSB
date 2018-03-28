@@ -25,6 +25,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
@@ -181,13 +182,18 @@ public class MainActivity extends AppCompatActivity {
                             adp1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                             spinner.setAdapter(adp1);
 
-                            //JSONArray medic = compteRednuJson.getJSONArray("medicaments");
-                            //JSONArray echantillons = compteRednuJson.getJSONArray("echantillons");
-                            praticien = compteRednuJson.getJSONArray("praticiens");
+                            JSONArray listMedic = compteRednuJson.getJSONArray("m\u00e9dicaments");
+                            JSONArray listEchantillons = compteRednuJson.getJSONArray("\u00e9chantillons");
+                            JSONArray listPraticien = compteRednuJson.getJSONArray("praticiens");
+                            JSONArray listremplacents = compteRednuJson.getJSONArray("remplacants");
 
                             AutoCompleteTextView praticienEditText = findViewById(R.id.editTextPraticien);
-                            praticienEditText.setCompletionHint("a");
-                            praticienEditText.setCompletionHint("b");
+                            String[] stringsArray = new String[listPraticien.length()];;
+                            for (int i = 0; i < listPraticien.length(); i++) {
+                                stringsArray[i] = listPraticien.getJSONObject(i).getString("nom")+" "+listPraticien.getJSONObject(i).getString("prenom");
+                            }
+                            ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, stringsArray);
+                            praticienEditText.setAdapter(adapter);
                         } catch (Exception e) {
                             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                         }
